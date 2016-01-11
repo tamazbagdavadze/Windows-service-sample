@@ -30,7 +30,7 @@ namespace Windows_service_sample
             var path = @"d:\\1.txt";
             var text = "some text";
 
-            File.WriteAllText(path, text);
+            File.AppendAllText(path, text);
         }
 
         protected override void OnStart(string[] args)
