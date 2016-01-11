@@ -15,42 +15,40 @@ namespace Windows_service_sample
 {
     public partial class Service1 : ServiceBase
     {
-
-        private readonly Timer timer;
+        private readonly Timer _timer;
+        private const string Path = @"d:\\1.txt";
+        private const string Text = "some Text";
 
         public Service1()
         {
             InitializeComponent();
-            timer = new Timer(500);
-            timer.Elapsed += Timer_Elapsed;
+            _timer = new Timer(500);
+            _timer.Elapsed += Timer_Elapsed;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var path = @"d:\\1.txt";
-            var text = "some text";
-
-            File.AppendAllText(path, text);
+            File.AppendAllText(Path, Text);
         }
 
         protected override void OnStart(string[] args)
         {
-            timer.Start();
+            _timer.Start();
         }
 
         protected override void OnStop()
         {
-            timer.Stop();
+            _timer.Stop();
         }
 
         protected override void OnPause()
         {
-            this.OnStop();
+            OnStop();
         }
 
         protected override void OnContinue()
         {
-            this.OnStart(null);
+            OnStart(null);
         }
     }
 }
